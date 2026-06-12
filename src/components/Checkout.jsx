@@ -8,6 +8,7 @@ import Button from './UI/Button.jsx';
 import UserProgressContext from '../store/UserProgressContext.jsx';
 import useHttp from '../hooks/useHttp.js';
 import Error from './Error.jsx';
+import { API_URL } from '../util/api.js';
 
 const requestConfig = {
   method: 'POST',
@@ -21,7 +22,7 @@ export default function Checkout() {
   const userProgressCtx = useContext(UserProgressContext);
 
   const { data, error, sendRequest, clearData } = useHttp(
-    'http://localhost:3000/orders',
+    `${API_URL}/orders`,
     requestConfig
   );
 
