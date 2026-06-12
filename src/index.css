@@ -282,3 +282,134 @@ h1 {
     transform: translateY(0);
   }
 }
+
+.orders-panel {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  width: min(20rem, calc(100vw - 2rem));
+  background-color: #1a1608;
+  border: 1px solid #ffc404;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
+  z-index: 50;
+  color: #d9e2f1;
+}
+
+.orders-panel--login {
+  padding: 1rem;
+}
+
+.orders-panel--login h3,
+.orders-panel-header h3 {
+  margin: 0;
+  font-size: 1rem;
+  color: #ffc404;
+}
+
+.orders-panel-hint,
+.orders-panel-empty,
+.orders-panel-footer {
+  margin: 0.5rem 0 0;
+  font-size: 0.85rem;
+  color: #b8c2d6;
+}
+
+.orders-panel--login form {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.orders-panel--login input {
+  flex: 1;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #4a4430;
+  border-radius: 4px;
+  background-color: #29251c;
+  color: #d9e2f1;
+  font: inherit;
+}
+
+.orders-panel--login button,
+.orders-panel-icon-btn {
+  border: none;
+  border-radius: 4px;
+  background-color: #ffc404;
+  color: #1a1608;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0.5rem 0.75rem;
+}
+
+.orders-panel--login button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.orders-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #4a4430;
+}
+
+.orders-panel-actions {
+  display: flex;
+  gap: 0.35rem;
+}
+
+.orders-panel-icon-btn {
+  font-size: 0.75rem;
+  padding: 0.35rem 0.5rem;
+}
+
+.orders-panel-body {
+  padding: 0.75rem 1rem 1rem;
+  max-height: 16rem;
+  overflow-y: auto;
+}
+
+.orders-panel-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.orders-panel-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #4a4430;
+}
+
+.orders-panel-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.orders-panel-item strong {
+  color: #ffc404;
+}
+
+.orders-panel-item span {
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.orders-panel-error {
+  margin: 0.5rem 0 0;
+  color: #f9b8b8;
+  font-size: 0.85rem;
+}
+
+.orders-panel--collapsed .orders-panel-body {
+  display: none;
+}

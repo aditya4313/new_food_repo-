@@ -68,6 +68,63 @@ app.post('/orders', async (req, res) => {
   res.status(201).json({ message: 'Order created!' });
 });
 
+async function readAllOrders() {
+  try {
+    const orders = await fs.readFile('./data/orders.json', 'utf8');
+    return JSON.parse(orders);
+  } catch (error) {
+    if (error.code === 'ENOENT') {
+      return [];
+    }
+    throw error;
+  }
+}
+
+function getAdminKey() {
+  if (process.env.ADMIN_KEY) {
+    return process.env.ADMIN_KEY;
+  }
+
+  if (process.env.NODE_ENV !== 'production') {
+    return 'foodapp-admin';
+  }
+
+  return null;
+}
+
+function sanitizeOrdersForAdmin(orders) {
+  return orders
+    .slice(-5)
+    .reverse()
+    .map((order) => ({
+      id: order.id,
+      customerName: order.customer?.name?.trim() || 'Unknown',
+      items: (order.items || []).map((item) => ({
+        name: item.name,
+        quantity: item.quantity,
+      })),
+    }));
+}
+
+app.get('/orders', async (req, res) => {
+  const adminKey = getAdminKey();
+
+  if (!adminKey) {
+    return res.status(503).json({ message: 'Admin access is not configured.' });
+  }
+
+  if (req.query.key !== adminKey) {
+    return res.status(401).json({ message: 'Invalid admin key.' });
+  }
+
+  try {
+    const allOrders = await readAllOrders();
+    res.json(sanitizeOrdersForAdmin(allOrders));
+  } catch {
+    res.status(500).json({ message: 'Failed to read orders.' });
+  }
+});
+
 app.use((req, res) => {
   if (req.method === 'OPTIONS') {
     return res.sendStatus(200);
